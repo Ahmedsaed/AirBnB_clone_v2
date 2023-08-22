@@ -1,5 +1,5 @@
 entry_point = console.py
-PY_FILES := $(shell find . -type f -name '*.py')
+PY_FILES := $(shell find . -type d -name 'tests' -prune -o -type f -name '*.py' -print)
 MAKEFLAGS += --silent
 PYTHON := python3
 
