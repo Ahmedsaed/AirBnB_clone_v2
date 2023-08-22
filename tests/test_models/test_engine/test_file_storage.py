@@ -7,6 +7,8 @@ import os
 from models.engine.file_storage import FileStorage
 
 
+@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db',
+                 "Testing DBStorage only")
 class test_fileStorage2(unittest.TestCase):
     """Test FileStorage Class"""
 
@@ -65,6 +67,8 @@ class test_fileStorage2(unittest.TestCase):
         self.assertIn(key, obj.all().keys())
 
 
+@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db',
+                 "Testing DBStorage only")
 class test_fileStorage1(unittest.TestCase):
     """ Class to test the file storage method """
 
