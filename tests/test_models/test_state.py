@@ -5,15 +5,15 @@ from models.state import State
 
 
 class test_state(test_basemodel):
-    """ """
+    """ Test Cases for State Class """
 
     def __init__(self, *args, **kwargs):
-        """ """
+        """ Test Initialize State Class """
         super().__init__(*args, **kwargs)
         self.name = "State"
         self.value = State
 
     def test_name3(self):
-        """ """
+        """ Test State Name """
         new = self.value()
         self.assertEqual(type(new.name), str)
