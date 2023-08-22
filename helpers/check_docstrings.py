@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+"""Checks if all modules, classes, and functions have docstrings."""
+
 import ast
 import sys
 import os
