@@ -15,8 +15,13 @@ run_tests:
 	HBNB_ENV=test HBNB_MYSQL_USER=hbnb_test HBNB_MYSQL_PWD=hbnb_test_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_test_db HBNB_TYPE_STORAGE=db $(PYTHON) -m unittest discover tests
 	@$(MAKE) announce MESSAGE="Checking docstrings"
 	@for file in $(PY_FILES); do \
-        python check_docstrings.py "$$file" || exit 1; \
+		if ! python check_docstrings.py $$file &> /dev/null; then \
+			echo "Docstrings check failed for $$file"; \
+        	python check_docstrings.py "$$file"; \
+			exit 1; \
+		fi; \
     done
+	@$(MAKE) announce MESSAGE="All docstrings are defined"
 
 announce:
 	@echo "------------------------------------------"
