@@ -50,7 +50,7 @@ class test_fileStorage2(unittest.TestCase):
         bm_id = bm.id
         obj.new(bm)
         obj.save()
-        with open("file.json", "r") as file:
+        with open(obj._FileStorage__file_path, "r") as file:
             self.assertIn(bm_id, file.read())
 
     def test_reload(self):
