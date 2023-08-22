@@ -8,6 +8,7 @@ import json
 import os
 from models.engine.file_storage import FileStorage
 from models import storage
+from os import getenv
 
 
 class test_basemodel(unittest.TestCase):
@@ -50,6 +51,7 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = BaseModel(**copy)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'DB')
     def test_save(self):
         """ Testing save """
         i = self.value()
@@ -178,6 +180,7 @@ class TestBaseModel1(unittest.TestCase):
         self.assertTrue(hasattr(bm, "updated_at"))
         self.assertIsInstance(bm.updated_at, datetime.datetime)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'DB')
     def test_save(self):
         """Tests save method"""
 
@@ -213,6 +216,7 @@ class TestBaseModel1(unittest.TestCase):
         self.assertEqual(bm.updated_at, bm2.updated_at)
         self.assertEqual(bm.__dict__, bm2.__dict__)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'DB')
     def test_FileStorage(self):
         """Tests FileStorage class"""
         self.clearStorageSystem()
@@ -225,6 +229,7 @@ class TestBaseModel1(unittest.TestCase):
             f.seek(0)
             self.assertEqual(json.loads(f.read()), file_content)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'DB')
     def test_save_no_args(self):
         """Tests save() with no arguments."""
         self.clearStorageSystem()
@@ -234,6 +239,7 @@ class TestBaseModel1(unittest.TestCase):
         # self.assertEqual(str(e.exception), msg)
         self.assertTrue(msg in str(e.exception))
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'DB')
     def test_save_excess_args(self):
         """Tests save() with too many arguments."""
         self.clearStorageSystem()

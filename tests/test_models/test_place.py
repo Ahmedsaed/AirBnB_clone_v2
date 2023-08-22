@@ -3,6 +3,7 @@
 from tests.test_models.test_base_model import test_basemodel
 from models.place import Place
 import unittest
+from os import getenv
 
 
 class test_Place(test_basemodel):
@@ -120,6 +121,7 @@ class TestPlace2(unittest.TestCase):
         """Tests place __str__"""
         self.assertEqual(type(self.place.__str__()), str)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'DB')
     def test_place_save(self):
         """Tests place save"""
         self.place.save()

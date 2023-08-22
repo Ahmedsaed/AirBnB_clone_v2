@@ -3,6 +3,7 @@
 from tests.test_models.test_base_model import test_basemodel
 from models.review import Review
 import unittest
+from os import getenv
 
 
 class test_review(test_basemodel):
@@ -70,6 +71,7 @@ class TestReview2(unittest.TestCase):
         """Tests review __str__"""
         self.assertEqual(type(self.review.__str__()), str)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'DB')
     def test_review_save(self):
         """Tests review save"""
         self.review.save()

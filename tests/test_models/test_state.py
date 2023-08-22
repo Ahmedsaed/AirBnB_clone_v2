@@ -3,6 +3,7 @@
 from tests.test_models.test_base_model import test_basemodel
 from models.state import State
 import unittest
+from os import getenv
 
 
 class test_state(test_basemodel):
@@ -50,6 +51,7 @@ class TestState2(unittest.TestCase):
         """Tests state __str__"""
         self.assertEqual(type(self.state.__str__()), str)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'DB')
     def test_state_save(self):
         """Tests state save"""
         self.state.save()

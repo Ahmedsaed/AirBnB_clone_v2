@@ -6,6 +6,7 @@ import unittest
 import datetime
 from models import storage
 from models.engine.file_storage import FileStorage
+from os import getenv
 
 
 class test_User(test_basemodel):
@@ -78,6 +79,7 @@ class TestUser2(unittest.TestCase):
                                                  self.user.__dict__))
         self.assertIsInstance(str(self.user), str)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'DB')
     def test_save(self):
         """Tests save method of User class."""
         self.user.save()
@@ -104,8 +106,3 @@ class TestUser2(unittest.TestCase):
         self.assertIsInstance(self.user.id, str)
         self.assertIsInstance(self.user.created_at, datetime.datetime)
         self.assertIsInstance(self.user.updated_at, datetime.datetime)
-
-    def test_save(self):
-        """Tests save method of User class."""
-        self.user.save()
-        self.assertNotEqual(self.user.created_at, self.user.updated_at)

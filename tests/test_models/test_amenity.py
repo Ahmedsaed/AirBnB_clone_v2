@@ -50,6 +50,7 @@ class TestAmenity2(unittest.TestCase):
         """Tests amenity __str__"""
         self.assertEqual(type(self.amenity.__str__()), str)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'DB')
     def test_amenity_save(self):
         """Tests amenity save"""
         self.amenity.save()

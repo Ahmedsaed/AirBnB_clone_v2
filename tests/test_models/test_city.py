@@ -3,6 +3,7 @@
 from tests.test_models.test_base_model import test_basemodel
 from models.city import City
 import unittest
+from os import getenv
 
 
 class test_City(test_basemodel):
@@ -55,6 +56,7 @@ class TestCity1(unittest.TestCase):
         """Tests city __str__"""
         self.assertEqual(type(self.city.__str__()), str)
 
+    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'DB')
     def test_city_save(self):
         """Tests city save"""
         self.city.save()
