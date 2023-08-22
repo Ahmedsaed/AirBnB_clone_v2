@@ -79,11 +79,11 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = self.value(**n)
 
-    def test_kwargs_one(self):
-        """ Test kwargs one """
-        n = {'Name': 'test'}
-        with self.assertRaises(KeyError):
-            new = self.value(**n)
+    # def test_kwargs_one(self):
+    #     """ Test kwargs one """
+    #     n = {'Name': 'test'}
+    #     with self.assertRaises(KeyError):
+    #         new = self.value(**n)
 
     def test_id(self):
         """ Test id """
@@ -141,15 +141,15 @@ class TestBaseModel1(unittest.TestCase):
                          "<class 'models.base_model.BaseModel'>")
         self.assertIsInstance(bm, BaseModel)
 
-    # def test_init_with_many_kwargs(self):
-    #     """Tests instantiation with many kwargs"""
-    #     self.clearStorageSystem()
-    #     bm = BaseModel(a=1, b=2, c=3, d=4, e=5, f=6, g=7, h=8)
-    #     bm2 = BaseModel(**{'a': 1, 'b': 2, 'c': 3, 'd': 4})
+    def test_init_with_many_kwargs(self):
+        """Tests instantiation with many kwargs"""
+        self.clearStorageSystem()
+        bm = BaseModel(a=1, b=2, c=3, d=4, e=5, f=6, g=7, h=8)
+        bm2 = BaseModel(**{'a': 1, 'b': 2, 'c': 3, 'd': 4})
 
-    #     self.assertEqual(str(type(bm)),
-    #                      "<class 'models.base_model.BaseModel'>")
-    #     self.assertIsInstance(bm, BaseModel)
+        self.assertEqual(str(type(bm)),
+                         "<class 'models.base_model.BaseModel'>")
+        self.assertIsInstance(bm, BaseModel)
 
     def test_attributes(self):
         """Tests attributes"""

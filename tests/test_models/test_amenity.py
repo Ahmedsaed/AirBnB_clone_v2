@@ -61,9 +61,9 @@ class TestAmenity2(unittest.TestCase):
         """Tests amenity to_dict"""
         self.assertEqual(type(self.amenity.to_dict()), dict)
 
-    # def test_amenity_kwargs(self):
-    #     """Tests amenity kwargs"""
-    #     self.new_amenity = Amenity(name="Wifi")
-    #     self.assertEqual(type(self.new_amenity).__name__, "Amenity")
-    #     self.assertTrue(hasattr(self.new_amenity, "name"))
-    #     self.assertEqual(self.new_amenity.name, "Wifi")
+    def test_amenity_kwargs(self):
+        """Tests amenity kwargs"""
+        self.new_amenity = Amenity(name="Wifi")
+        self.assertEqual(type(self.new_amenity).__name__, "Amenity")
+        self.assertTrue(hasattr(self.new_amenity, "name"))
+        self.assertEqual(self.new_amenity.name, "Wifi")

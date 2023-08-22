@@ -81,9 +81,9 @@ class TestReview2(unittest.TestCase):
         """Tests review to_dict"""
         self.assertEqual(type(self.review.to_dict()), dict)
 
-    # def test_review_kwargs(self):
-    #     """Tests review kwargs"""
-    #     self.new_review = Review(text="Great place")
-    #     self.assertEqual(type(self.new_review).__name__, "Review")
-    #     self.assertTrue(hasattr(self.new_review, "text"))
-    #     self.assertEqual(self.new_review.text, "Great place")
+    def test_review_kwargs(self):
+        """Tests review kwargs"""
+        self.new_review = Review(text="Great place")
+        self.assertEqual(type(self.new_review).__name__, "Review")
+        self.assertTrue(hasattr(self.new_review, "text"))
+        self.assertEqual(self.new_review.text, "Great place")

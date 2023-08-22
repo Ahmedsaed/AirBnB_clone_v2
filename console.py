@@ -84,12 +84,34 @@ class HBNBCommand(cmd.Cmd):
         """Usage: create <class>
         Create command to create a new instance"""
         cmd_args = parse(arg)
-        if not arg:
+
+        if len(cmd_args) == 0:
             print("** class name missing **")
-        elif arg not in self.__classes:
+        elif len(cmd_args) == 1 and arg not in self.__classes:
             print("** class doesn't exist **")
-        else:
+        elif len(cmd_args) == 1:
             new_instance = eval(cmd_args[0])()
+            new_instance.save()
+            print(new_instance.id)
+        elif len(cmd_args) > 1:
+            class_name, params_list = cmd_args[0], cmd_args[1:]
+            params_dict = {}
+            for param in params_list:
+                [key, value] = param.split("=")
+                if value[0] == '"' and value[-1] == '"':
+                    value = value[1:-1]
+                elif "." in value:
+                    try:
+                        value = float(value)
+                    except ValueError:
+                        pass
+                else:
+                    try:
+                        value = int(value)
+                    except ValueError:
+                        pass
+                params_dict[key] = value
+            new_instance = eval(class_name)(**params_dict)
             new_instance.save()
             print(new_instance.id)
 

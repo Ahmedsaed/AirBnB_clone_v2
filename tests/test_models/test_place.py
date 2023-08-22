@@ -131,9 +131,9 @@ class TestPlace2(unittest.TestCase):
         """Tests place to_dict"""
         self.assertEqual(type(self.place.to_dict()), dict)
 
-    # def test_place_kwargs(self):
-    #     """Tests place kwargs"""
-    #     self.new_place = Place(name="San Francisco")
-    #     self.assertEqual(type(self.new_place).__name__, "Place")
-    #     self.assertTrue(hasattr(self.new_place, "name"))
-    #     self.assertEqual(self.new_place.name, "San Francisco")
+    def test_place_kwargs(self):
+        """Tests place kwargs"""
+        self.new_place = Place(name="San Francisco")
+        self.assertEqual(type(self.new_place).__name__, "Place")
+        self.assertTrue(hasattr(self.new_place, "name"))
+        self.assertEqual(self.new_place.name, "San Francisco")

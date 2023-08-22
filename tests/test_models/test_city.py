@@ -66,9 +66,9 @@ class TestCity1(unittest.TestCase):
         """Tests city to_dict"""
         self.assertEqual(type(self.city.to_dict()), dict)
 
-    # def test_city_kwargs(self):
-    #     """Tests city kwargs"""
-    #     self.new_city = City(name="San Francisco")
-    #     self.assertEqual(type(self.new_city).__name__, "City")
-    #     self.assertTrue(hasattr(self.new_city, "name"))
-    #     self.assertEqual(self.new_city.name, "San Francisco")
+    def test_city_kwargs(self):
+        """Tests city kwargs"""
+        self.new_city = City(name="San Francisco")
+        self.assertEqual(type(self.new_city).__name__, "City")
+        self.assertTrue(hasattr(self.new_city, "name"))
+        self.assertEqual(self.new_city.name, "San Francisco")
