@@ -14,8 +14,9 @@ run_tests:
 	@$(MAKE) announce MESSAGE="Running unit tests - Database"
 	HBNB_ENV=test HBNB_MYSQL_USER=hbnb_test HBNB_MYSQL_PWD=hbnb_test_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_test_db HBNB_TYPE_STORAGE=db $(PYTHON) -m unittest discover tests
 	@$(MAKE) announce MESSAGE="Checking docstrings"
+	echo "checking [$(PY_FILES)]"
 	@for file in $(PY_FILES); do \
-		if ! python check_docstrings.py $$file &> /dev/null; then \
+		if ! python ./helpers/check_docstrings.py $$file &> /dev/null; then \
         	python ./helpers/check_docstrings.py "$$file"; \
 			exit 1; \
 		fi; \
