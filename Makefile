@@ -37,15 +37,19 @@ check_style:
 clear_screen:
 	clear
 
-setup_dev_db:
-	@$(MAKE) announce MESSAGE="Setting up dev database"
+setup_db:
+	@$(MAKE) announce MESSAGE="Setting up MySql database"
 	docker-compose up -d
 	sleep 60
-	@$(MAKE) announce MESSAGE="Creating databases and users"
+	@$(MAKE) announce MESSAGE="Creating databases and users for development"
 	cat setup_mysql_dev.sql | mysql -h 127.0.0.1 -P 3306 -u root -phbnb_dev_pwd
 	sleep 5
 	mysql -h 127.0.0.1 -P 3306 -u root -phbnb_dev_pwd -e "SELECT user FROM mysql.user;"
+	@$(MAKE) announce MESSAGE="Creating databases and users for testing"
+	cat setup_mysql_test.sql | mysql -h
+	sleep 5
+	mysql -h 127.0.0.1 -P 3306 -u root -phbnb_dev_pwd -e "SELECT user FROM mysql.user;"
 
-destroy_dev_db:
+destroy_db:
 	@$(MAKE) announce MESSAGE="Destroying database"
 	docker-compose down -v
