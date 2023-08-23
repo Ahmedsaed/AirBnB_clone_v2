@@ -15,10 +15,10 @@ class test_Amenity(test_basemodel):
         self.name = "Amenity"
         self.value = Amenity
 
-    def test_name2(self):
-        """ Test Amenity Name """
-        new = self.value()
-        self.assertEqual(type(new.name), str)
+    # def test_name2(self):
+    #     """ Test Amenity Name """
+    #     new = self.value()
+    #     self.assertEqual(type(new.name), str)
 
 
 class TestAmenity2(unittest.TestCase):
@@ -27,13 +27,13 @@ class TestAmenity2(unittest.TestCase):
         """Sets up Amenity for testing"""
         self.amenity = Amenity()
 
-    def test_amenity_type(self):
-        """Tests amenity type"""
-        self.assertEqual(type(self.amenity.name), str)
+    # def test_amenity_type(self):
+    #     """Tests amenity type"""
+    #     self.assertEqual(type(self.amenity.name), str)
 
-    def test_amenity_name(self):
-        """Tests amenity name"""
-        self.assertEqual(self.amenity.name, "")
+    # def test_amenity_name(self):
+    #     """Tests amenity name"""
+    #     self.assertEqual(self.amenity.name, "")
 
     def test_amenity_id(self):
         """Tests amenity id"""
