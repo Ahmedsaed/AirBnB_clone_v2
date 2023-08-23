@@ -27,8 +27,10 @@ class Place(BaseModel, Base):
         @property
         def reviews(self):
             """Get a list of all linked Reviews."""
+            from models import storage
+            from models.review import Review
             review_list = []
-            for review in list(models.storage.all(Review).values()):
+            for review in list(storage.all(Review).values()):
                 if review.place_id == self.id:
                     review_list.append(review)
             return review_list
