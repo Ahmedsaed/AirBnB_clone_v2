@@ -165,12 +165,7 @@ class HBNBCommand(cmd.Cmd):
                 to_print.append(str(v))
 
         if len(to_print) > 0:
-            print("[", end="")
-            for i, s in enumerate(to_print):
-                print(s, end="")
-                if i != len(to_print) - 1:
-                    print(', ', end="")
-            print("]")
+            print(to_print)
 
     def do_update(self, arg):
         """Usage: update <class> <id> <attribute_name> <attribute_value>
