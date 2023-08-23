@@ -16,7 +16,8 @@ run_tests:
 	@$(MAKE) announce MESSAGE="Checking docstrings"
 	echo "checking [$(PY_FILES)]"
 	@for file in $(PY_FILES); do \
-		if ! python ./helpers/check_docstrings.py $$file &> /dev/null; then \
+		if ! python ./helpers/check_docstrings.py $$file >/dev/null; then \
+			echo "asdasd"; \
         	python ./helpers/check_docstrings.py "$$file"; \
 			exit 1; \
 		fi; \
