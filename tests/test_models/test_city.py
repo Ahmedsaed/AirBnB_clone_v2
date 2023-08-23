@@ -15,15 +15,15 @@ class test_City(test_basemodel):
         self.name = "City"
         self.value = City
 
-    # def test_state_id(self):
-    #     """ Test State ID """
-    #     new = self.value()
-    #     self.assertEqual(type(new.state_id), str)
+    def test_state_id(self):
+        """ Test State ID """
+        new = self.value()
+        self.assertEqual(type(new.state_id), str)
 
-    # def test_name(self):
-    #     """ Test City Name """
-    #     new = self.value()
-    #     self.assertEqual(type(new.name), str)
+    def test_name(self):
+        """ Test City Name """
+        new = self.value()
+        self.assertEqual(type(new.name), str)
 
 
 class TestCity1(unittest.TestCase):
@@ -32,13 +32,13 @@ class TestCity1(unittest.TestCase):
         """Sets up City for testing"""
         self.city = City()
 
-    # def test_city_type(self):
-    #     """Tests city type"""
-    #     self.assertEqual(type(self.city.name), str)
+    def test_city_type(self):
+        """Tests city type"""
+        self.assertEqual(type(self.city.name), str)
 
-    # def test_city_name(self):
-    #     """Tests city name"""
-    #     self.assertEqual(self.city.name, "")
+    def test_city_name(self):
+        """Tests city name"""
+        self.assertEqual(self.city.name, "")
 
     def test_city_id(self):
         """Tests city id"""
