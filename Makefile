@@ -46,7 +46,7 @@ setup_db:
 	sleep 5
 	mysql -h 127.0.0.1 -P 3306 -u root -phbnb_dev_pwd -e "SELECT user FROM mysql.user;"
 	@$(MAKE) announce MESSAGE="Creating databases and users for testing"
-	cat setup_mysql_test.sql | mysql -h
+	cat setup_mysql_test.sql | mysql -h 127.0.0.1 -P 3306 -u root -phbnb_dev_pwd
 	sleep 5
 	mysql -h 127.0.0.1 -P 3306 -u root -phbnb_dev_pwd -e "SELECT user FROM mysql.user;"
 
