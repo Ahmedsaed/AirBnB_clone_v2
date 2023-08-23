@@ -152,17 +152,17 @@ class HBNBCommand(cmd.Cmd):
         Prints all string representation of all
         instances based or not on the class name"""
         cmd_args = parse(arg)
-        storage_objects = storage.all()
         to_print = []
         if len(cmd_args) == 0:
+            storage_objects = storage.all()
             for v in storage_objects.values():
                 to_print.append(str(v))
         elif cmd_args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
+            storage_objects = storage.all(eval(cmd_args[0]))
             for v in storage_objects.values():
-                if v.__class__.__name__ == cmd_args[0]:
-                    to_print.append(str(v))
+                to_print.append(str(v))
 
         if len(to_print) > 0:
             print(to_print)
