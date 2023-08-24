@@ -40,7 +40,7 @@ class FileStorage:
 
     def save(self):
         """Saves storage dictionary to file"""
-        with open(FileStorage.__file_path, 'w') as f:
+        with open(FileStorage.__file_path, 'w', encoding="utf-8") as f:
             temp = {}
             temp.update(FileStorage.__objects)
             for key, val in temp.items():

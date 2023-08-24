@@ -101,6 +101,7 @@ class HBNBCommand(cmd.Cmd):
             params_dict = {}
             for param in params_list:
                 [key, value] = param.split("=")
+                value = value.replace("_", " ")
                 if value[0] == '"' and value[-1] == '"':
                     value = value[1:-1]
                 elif "." in value:
