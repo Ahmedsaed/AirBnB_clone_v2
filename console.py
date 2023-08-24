@@ -73,6 +73,9 @@ class HBNBCommand(cmd.Cmd):
         """Usage: count <class> or <class>.count()
         Retrieves the number of instances of a class"""
         cmd_args = parse(arg)
+        if cmd_args[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+            return False
         storage_objects = storage.all()
         count = 0
         for v in storage_objects.values():
@@ -159,13 +162,15 @@ class HBNBCommand(cmd.Cmd):
                 to_print.append(str(v))
         elif cmd_args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
+            return False
         else:
             storage_objects = storage.all(eval(cmd_args[0]))
             for v in storage_objects.values():
                 to_print.append(str(v))
 
-        if len(to_print) > 0:
-            print(to_print)
+        print("[", end="")
+        print(", ".join(to_print), end="")
+        print("]")
 
     def do_update(self, arg):
         """Usage: update <class> <id> <attribute_name> <attribute_value>

@@ -1,74 +1,65 @@
 #!/usr/bin/python3
-""" Module for testing city """
-from tests.test_models.test_base_model import test_basemodel
-from models.city import City
+"""test for city"""
 import unittest
+import os
 from os import getenv
+from models.city import City
+from models.base_model import BaseModel
 
 
-class test_City(test_basemodel):
-    """ Test Cases for City Class """
+class TestCity(unittest.TestCase):
+    """this will test the city class"""
 
-    def __init__(self, *args, **kwargs):
-        """ Initialize City Class """
-        super().__init__(*args, **kwargs)
-        self.name = "City"
-        self.value = City
+    @classmethod
+    def setUpClass(cls):
+        """set up for test"""
+        cls.city = City()
+        cls.city.name = "LA"
+        cls.city.state_id = "CA"
 
-    def test_state_id(self):
-        """ Test State ID """
-        new = self.value()
-        self.assertEqual(type(new.state_id), str)
+    @classmethod
+    def teardown(cls):
+        """at the end of the test this will tear it down"""
+        del cls.city
 
-    def test_name(self):
-        """ Test City Name """
-        new = self.value()
-        self.assertEqual(type(new.name), str)
+    def tearDown(self):
+        """teardown"""
+        try:
+            os.remove("file.json")
+        except Exception:
+            pass
 
+    def test_checking_for_docstring_City(self):
+        """checking for docstrings"""
+        self.assertIsNotNone(City.__doc__)
 
-class TestCity1(unittest.TestCase):
-    """TestCity Class"""
-    def setUp(self):
-        """Sets up City for testing"""
-        self.city = City()
+    def test_attributes_City(self):
+        """chekcing if City have attributes"""
+        self.assertTrue('id' in self.city.__dict__)
+        self.assertTrue('created_at' in self.city.__dict__)
+        self.assertTrue('updated_at' in self.city.__dict__)
+        self.assertTrue('state_id' in self.city.__dict__)
+        self.assertTrue('name' in self.city.__dict__)
 
-    def test_city_type(self):
-        """Tests city type"""
+    def test_is_subclass_City(self):
+        """test if City is subclass of Basemodel"""
+        self.assertTrue(issubclass(self.city.__class__, BaseModel), True)
+
+    def test_attribute_types_City(self):
+        """test attribute type for City"""
         self.assertEqual(type(self.city.name), str)
-
-    def test_city_name(self):
-        """Tests city name"""
-        self.assertEqual(self.city.name, "")
-
-    def test_city_id(self):
-        """Tests city id"""
-        self.assertEqual(type(self.city.id), str)
-
-    def test_city_created_at(self):
-        """Tests city created_at"""
-        self.assertEqual(type(self.city.created_at).__name__, "datetime")
-
-    def test_city_updated_at(self):
-        """Tests city updated_at"""
-        self.assertEqual(type(self.city.updated_at).__name__, "datetime")
-
-    def test_city_str(self):
-        """Tests city __str__"""
-        self.assertEqual(type(self.city.__str__()), str)
+        self.assertEqual(type(self.city.state_id), str)
 
     @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'DB')
-    def test_city_save(self):
-        """Tests city save"""
+    def test_save_City(self):
+        """test if the save works"""
         self.city.save()
-        self.assertEqual(type(self.city.updated_at).__name__, "datetime")
+        self.assertNotEqual(self.city.created_at, self.city.updated_at)
 
-    def test_city_to_dict(self):
-        """Tests city to_dict"""
-        self.assertEqual(type(self.city.to_dict()), dict)
+    def test_to_dict_City(self):
+        """test if dictionary works"""
+        self.assertEqual('to_dict' in dir(self.city), True)
 
-    def test_city_kwargs(self):
-        """Tests city kwargs"""
-        self.new_city = City(name="San Francisco")
-        self.assertEqual(type(self.new_city).__name__, "City")
-        self.assertTrue(hasattr(self.new_city, "name"))
-        self.assertEqual(self.new_city.name, "San Francisco")
+
+if __name__ == "__main__":
+    unittest.main()

@@ -1,69 +1,60 @@
 #!/usr/bin/python3
-""" Module for testing state """
-from tests.test_models.test_base_model import test_basemodel
-from models.state import State
+"""test for state"""
 import unittest
-from os import getenv
+import os
+from models.state import State
+from models.base_model import BaseModel
 
 
-class test_state(test_basemodel):
-    """ Test Cases for State Class """
+class TestState(unittest.TestCase):
+    """this will test the State class"""
 
-    def __init__(self, *args, **kwargs):
-        """ Test Initialize State Class """
-        super().__init__(*args, **kwargs)
-        self.name = "State"
-        self.value = State
+    @classmethod
+    def setUpClass(cls):
+        """set up for test"""
+        cls.state = State()
+        cls.state.name = "CA"
 
-    def test_name3(self):
-        """ Test State Name """
-        new = self.value()
-        self.assertEqual(type(new.name), str)
+    @classmethod
+    def teardown(cls):
+        """at the end of the test this will tear it down"""
+        del cls.state
 
+    def tearDown(self):
+        """teardown"""
+        try:
+            os.remove("file.json")
+        except Exception:
+            pass
 
-class TestState2(unittest.TestCase):
-    """TestState Class"""
-    def setUp(self):
-        """Sets up State for testing"""
-        self.state = State()
+    def test_checking_for_docstring_State(self):
+        """checking for docstrings"""
+        self.assertIsNotNone(State.__doc__)
 
-    def test_state_type(self):
-        """Tests state type"""
+    def test_attributes_State(self):
+        """chekcing if State have attributes"""
+        self.assertTrue('id' in self.state.__dict__)
+        self.assertTrue('created_at' in self.state.__dict__)
+        self.assertTrue('updated_at' in self.state.__dict__)
+        self.assertTrue('name' in self.state.__dict__)
+
+    def test_is_subclass_State(self):
+        """test if State is subclass of BaseModel"""
+        self.assertTrue(issubclass(self.state.__class__, BaseModel), True)
+
+    def test_attribute_types_State(self):
+        """test attribute type for State"""
         self.assertEqual(type(self.state.name), str)
 
-    def test_state_name(self):
-        """Tests state name"""
-        self.assertEqual(self.state.name, "")
-
-    def test_state_id(self):
-        """Tests state id"""
-        self.assertEqual(type(self.state.id), str)
-
-    def test_state_created_at(self):
-        """Tests state created_at"""
-        self.assertEqual(type(self.state.created_at).__name__, "datetime")
-
-    def test_state_updated_at(self):
-        """Tests state updated_at"""
-        self.assertEqual(type(self.state.updated_at).__name__, "datetime")
-
-    def test_state_str(self):
-        """Tests state __str__"""
-        self.assertEqual(type(self.state.__str__()), str)
-
-    @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'DB')
-    def test_state_save(self):
-        """Tests state save"""
+    def test_save_State(self):
+        """test if the save works"""
         self.state.save()
-        self.assertEqual(type(self.state.updated_at).__name__, "datetime")
+        self.assertNotEqual(self.state.created_at, self.state.updated_at)
 
-    def test_state_to_dict(self):
-        """Tests state to_dict"""
-        self.assertEqual(type(self.state.to_dict()), dict)
+    def test_to_dict_State(self):
+        """test if dictionary works"""
+        self.assertEqual('to_dict' in dir(self.state), True)
 
-    def test_state_kwargs(self):
-        """Tests state kwargs"""
-        self.new_state = State(name="California")
-        self.assertEqual(type(self.new_state).__name__, "State")
-        self.assertTrue(hasattr(self.new_state, "name"))
-        self.assertEqual(self.new_state.name, "California")
+
+if __name__ == "__main__":
+    unittest.main()

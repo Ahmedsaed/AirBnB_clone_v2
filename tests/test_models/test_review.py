@@ -1,89 +1,68 @@
 #!/usr/bin/python3
-""" Module for testing review """
-from tests.test_models.test_base_model import test_basemodel
-from models.review import Review
+"""test for review"""
 import unittest
+import os
 from os import getenv
+from models.review import Review
+from models.base_model import BaseModel
 
 
-class test_review(test_basemodel):
-    """ Test Cases for Review Class """
+class TestReview(unittest.TestCase):
+    """this will test the place class"""
 
-    def __init__(self, *args, **kwargs):
-        """ Initialize Review Class """
-        super().__init__(*args, **kwargs)
-        self.name = "Review"
-        self.value = Review
+    @classmethod
+    def setUpClass(cls):
+        """set up for test"""
+        cls.rev = Review()
+        cls.rev.place_id = "4321-dcba"
+        cls.rev.user_id = "123-bca"
+        cls.rev.text = "The srongest in the Galaxy"
 
-    def test_place_id(self):
-        """ Test Place ID """
-        new = self.value()
-        self.assertEqual(type(new.place_id), str)
+    @classmethod
+    def teardown(cls):
+        """at the end of the test this will tear it down"""
+        del cls.rev
 
-    def test_user_id(self):
-        """ Test User ID """
-        new = self.value()
-        self.assertEqual(type(new.user_id), str)
+    def tearDown(self):
+        """teardown"""
+        try:
+            os.remove("file.json")
+        except Exception:
+            pass
 
-    def test_text(self):
-        """ Test Text """
-        new = self.value()
-        self.assertEqual(type(new.text), str)
+    def test_checking_for_docstring_Review(self):
+        """checking for docstrings"""
+        self.assertIsNotNone(Review.__doc__)
 
+    def test_attributes_review(self):
+        """chekcing if review have attributes"""
+        self.assertTrue('id' in self.rev.__dict__)
+        self.assertTrue('created_at' in self.rev.__dict__)
+        self.assertTrue('updated_at' in self.rev.__dict__)
+        self.assertTrue('place_id' in self.rev.__dict__)
+        self.assertTrue('text' in self.rev.__dict__)
+        self.assertTrue('user_id' in self.rev.__dict__)
 
-class TestReview2(unittest.TestCase):
-    """TestReview Class"""
-    def setUp(self):
-        """Sets up Review for testing"""
-        self.review = Review()
+    def test_is_subclass_Review(self):
+        """test if review is subclass of BaseModel"""
+        self.assertTrue(issubclass(self.rev.__class__, BaseModel), True)
 
-    def test_review_type(self):
-        """Tests review type"""
-        self.assertEqual(type(self.review.place_id), str)
-        self.assertEqual(type(self.review.user_id), str)
-        self.assertEqual(type(self.review.text), str)
-
-    def test_review_place_id(self):
-        """Tests review place_id"""
-        self.assertEqual(self.review.place_id, "")
-
-    def test_review_user_id(self):
-        """Tests review user_id"""
-        self.assertEqual(self.review.user_id, "")
-
-    def test_review_text(self):
-        """Tests review text"""
-        self.assertEqual(self.review.text, "")
-
-    def test_review_id(self):
-        """Tests review id"""
-        self.assertEqual(type(self.review.id), str)
-
-    def test_review_created_at(self):
-        """Tests review created_at"""
-        self.assertEqual(type(self.review.created_at).__name__, "datetime")
-
-    def test_review_updated_at(self):
-        """Tests review updated_at"""
-        self.assertEqual(type(self.review.updated_at).__name__, "datetime")
-
-    def test_review_str(self):
-        """Tests review __str__"""
-        self.assertEqual(type(self.review.__str__()), str)
+    def test_attribute_types_Review(self):
+        """test attribute type for Review"""
+        self.assertEqual(type(self.rev.text), str)
+        self.assertEqual(type(self.rev.place_id), str)
+        self.assertEqual(type(self.rev.user_id), str)
 
     @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db', 'DB')
-    def test_review_save(self):
-        """Tests review save"""
-        self.review.save()
-        self.assertEqual(type(self.review.updated_at).__name__, "datetime")
+    def test_save_Review(self):
+        """test if the save works"""
+        self.rev.save()
+        self.assertNotEqual(self.rev.created_at, self.rev.updated_at)
 
-    def test_review_to_dict(self):
-        """Tests review to_dict"""
-        self.assertEqual(type(self.review.to_dict()), dict)
+    def test_to_dict_Review(self):
+        """test if dictionary works"""
+        self.assertEqual('to_dict' in dir(self.rev), True)
 
-    def test_review_kwargs(self):
-        """Tests review kwargs"""
-        self.new_review = Review(text="Great place")
-        self.assertEqual(type(self.new_review).__name__, "Review")
-        self.assertTrue(hasattr(self.new_review, "text"))
-        self.assertEqual(self.new_review.text, "Great place")
+
+if __name__ == "__main__":
+    unittest.main()

@@ -12,7 +12,7 @@ run_tests:
 	@$(MAKE) announce MESSAGE="Running unit tests - File Storage"
 	$(PYTHON) -m unittest discover tests
 	@$(MAKE) announce MESSAGE="Running unit tests - Database"
-	HBNB_ENV=test HBNB_MYSQL_USER=hbnb_test HBNB_MYSQL_PWD=hbnb_test_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_test_db HBNB_TYPE_STORAGE=db $(PYTHON) -m unittest discover tests
+	HBNB_MYSQL_USER=root HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=127.0.0.1 HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db $(PYTHON) -m unittest discover tests
 	@$(MAKE) announce MESSAGE="Checking docstrings"
 	echo "checking [$(PY_FILES)]"
 	@for file in $(PY_FILES); do \
