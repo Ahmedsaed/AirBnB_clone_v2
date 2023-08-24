@@ -12,6 +12,8 @@ from models.review import Review
 from models import storage
 import re
 from shlex import split
+import warnings
+warnings.filterwarnings("ignore")
 
 
 def parse(arg):

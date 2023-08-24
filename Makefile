@@ -8,6 +8,9 @@ all: clear_screen check_style run_tests
 run:
 	@$(PYTHON) $(entry_point)
 
+run_db:
+	HBNB_MYSQL_USER=root HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=127.0.0.1 HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db $(PYTHON) $(entry_point)
+
 run_tests:
 	@$(MAKE) announce MESSAGE="Running unit tests - File Storage"
 	$(PYTHON) -m unittest discover tests
@@ -50,6 +53,11 @@ setup_db:
 	cat setup_mysql_test.sql | mysql -h 127.0.0.1 -P 3306 -u root -phbnb_dev_pwd
 	sleep 5
 	mysql -h 127.0.0.1 -P 3306 -u root -phbnb_dev_pwd -e "SELECT user FROM mysql.user;"
+
+reset_db:
+	@$(MAKE) announce MESSAGE="Resetting database"
+	docker-compose down -v
+	@$(MAKE) setup_db
 
 destroy_db:
 	@$(MAKE) announce MESSAGE="Destroying database"
