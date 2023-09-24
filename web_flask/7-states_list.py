@@ -22,5 +22,5 @@ def states_list():
     states = sorted(list(storage.all("State").values()), key=lambda x: x.name)
     return render_template('7-states_list.html', states=states)
 
-
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
