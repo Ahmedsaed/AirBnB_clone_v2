@@ -15,18 +15,9 @@ def teardown(exception):
 
 @app.route('/states_list', strict_slashes=False)
 def states_list():
-    unsorted_states = storage.all(State)
-    sorted_states = []
-    for state in unsorted_states.items():
-        sorted_states.append({
-            'id': state[1].id,
-            'name': state[1].name
-        })
-        state[1].name
-    print(sorted_states)
-    return render_template('7-states_list.html',
-                           states=sorted_states
-                           )
+    """display a HTML page with the states listed in alphabetical order"""
+    states = sorted(list(storage.all("State").values()), key=lambda x: x.name)
+    return render_template('7-states_list.html', states=states)
 
 
 app.run(debug=True)
