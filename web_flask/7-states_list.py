@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# simple flask app
+""" simple flask app """
 from flask import Flask, request
 from models import storage
 from models.state import State
@@ -12,6 +12,7 @@ app = Flask(__name__)
 
 @app.teardown_appcontext
 def teardown(exception):
+    """closes the storage on teardown"""
     storage.close()
 
 
