@@ -4,6 +4,8 @@ from flask import Flask, request
 from models import storage
 from models.state import State
 from flask import render_template
+import warnings
+warnings.filterwarnings("ignore")
 
 app = Flask(__name__)
 
